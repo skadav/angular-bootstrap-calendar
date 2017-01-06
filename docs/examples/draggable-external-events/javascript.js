@@ -4,7 +4,15 @@ angular
 
     var vm = this;
 
-    vm.events = [];
+    vm.events = [
+      {
+        title: 'Draggable event',
+        color: calendarConfig.colorTypes.warning,
+        startsAt: moment().startOf('month').toDate(),
+        draggable: true,
+        column: 0
+      }
+    ];
 
     vm.externalEvents = [
       {
@@ -12,10 +20,26 @@ angular
         type: 'warning',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('month').toDate(),
-        draggable: true
+        draggable: true,
+        column: 0
       },
       {
         title: 'Event 2',
+        type: 'danger',
+        color: calendarConfig.colorTypes.important,
+        startsAt: moment().startOf('month').toDate(),
+        draggable: true,
+        column: 0
+      },
+      {
+        title: 'Event 3',
+        type: 'danger',
+        color: calendarConfig.colorTypes.important,
+        startsAt: moment().startOf('month').toDate(),
+        draggable: true
+      },
+      {
+        title: 'Event 4',
         type: 'danger',
         color: calendarConfig.colorTypes.important,
         startsAt: moment().startOf('month').toDate(),
@@ -23,9 +47,10 @@ angular
       }
     ];
 
-    vm.calendarView = 'month';
+    vm.calendarView = 'day';
     vm.viewDate = moment().startOf('month').toDate();
     vm.cellIsOpen = false;
+    vm.columns= [1,2,3,4,5,6,7,8];
 
     vm.eventDropped = function(event, start, end) {
       var externalIndex = vm.externalEvents.indexOf(event);

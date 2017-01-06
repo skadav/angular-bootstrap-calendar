@@ -121,6 +121,7 @@ angular
       template: '<div mwl-dynamic-directive-template name="calendarHourList" overrides="vm.customTemplateUrls"></div>',
       controller: 'MwlCalendarHourListCtrl as vm',
       scope: {
+        columns: '=',
         viewDate: '=',
         dayViewStart: '=',
         dayViewEnd: '=',

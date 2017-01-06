@@ -132,6 +132,7 @@ angular
       restrict: 'E',
       scope: {
         events: '=',
+        columns: '=',
         view: '=',
         viewTitle: '=?',
         viewDate: '=',
