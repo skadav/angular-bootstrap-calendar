@@ -310,6 +310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      restrict: 'E',
 	      scope: {
 	        events: '=',
+	        columns: '=',
 	        view: '=',
 	        viewTitle: '=?',
 	        viewDate: '=',
@@ -346,115 +347,122 @@ return /******/ (function(modules) { // webpackBootstrap
 	var angular = __webpack_require__(12);
 
 	angular
-	  .module('mwl.calendar')
-	  .controller('MwlCalendarDayCtrl', ["$scope", "moment", "calendarHelper", "calendarEventTitle", function($scope, moment, calendarHelper, calendarEventTitle) {
+	.module('mwl.calendar')
+	.controller('MwlCalendarDayCtrl', ["$scope", "moment", "calendarHelper", "calendarEventTitle", function($scope, moment, calendarHelper, calendarEventTitle) {
 
-	    var vm = this;
+	  var vm = this;
 
-	    vm.calendarEventTitle = calendarEventTitle;
+	  vm.calendarEventTitle = calendarEventTitle;
 
-	    function refreshView() {
-	      vm.dayViewSplit = vm.dayViewSplit || 30;
-	      vm.dayViewHeight = calendarHelper.getDayViewHeight(
-	        vm.dayViewStart,
-	        vm.dayViewEnd,
-	        vm.dayViewSplit
-	      );
+	  function refreshView() {
+	    vm.dayViewSplit = vm.dayViewSplit || 30;
+	    vm.dayViewHeight = calendarHelper.getDayViewHeight(
+	      vm.dayViewStart,
+	      vm.dayViewEnd,
+	      vm.dayViewSplit
+	    );
 
-	      var view = calendarHelper.getDayView(
-	        vm.events,
-	        vm.viewDate,
-	        vm.dayViewStart,
-	        vm.dayViewEnd,
-	        vm.dayViewSplit,
-	        vm.dayViewEventWidth
-	      );
+	    var view = calendarHelper.getDayView(
+	      vm.events,
+	      vm.viewDate,
+	      vm.dayViewStart,
+	      vm.dayViewEnd,
+	      vm.dayViewSplit,
+	      vm.dayViewEventWidth
+	    );
 
-	      vm.allDayEvents = view.allDayEvents;
-	      vm.nonAllDayEvents = view.events;
-	      vm.viewWidth = view.width + 62;
+	    vm.allDayEvents = view.allDayEvents;
+	    vm.nonAllDayEvents = view.events;
+	    vm.viewWidth = view.width + 62;
 
+	  }
+
+	  $scope.$on('calendar.refreshView', refreshView);
+
+	  $scope.$watchGroup([
+	    'vm.dayViewStart',
+	    'vm.dayViewEnd',
+	    'vm.dayViewSplit'
+	  ], refreshView);
+
+	  vm.eventDragComplete = function(event, minuteChunksMoved, columChunksMoved) {
+	    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+	    if (typeof vm.columns !== 'undefined') {
+	      if (typeof event.column === 'undefined') {
+	        event.column = 0;
+	      }
+	      event.column = event.column + Math.round(columChunksMoved);
 	    }
 
-	    $scope.$on('calendar.refreshView', refreshView);
+	    var newStart = moment(event.startsAt).add(minutesDiff, 'minutes');
+	    var newEnd = moment(event.endsAt).add(minutesDiff, 'minutes');
+	    delete event.tempStartsAt;
+	    vm.onEventTimesChanged({
+	      calendarEvent: event,
+	      calendarNewEventStart: newStart.toDate(),
+	      calendarNewEventEnd: event.endsAt ? newEnd.toDate() : null
+	    });
+	  };
 
-	    $scope.$watchGroup([
-	      'vm.dayViewStart',
-	      'vm.dayViewEnd',
-	      'vm.dayViewSplit'
-	    ], refreshView);
+	  vm.eventDragged = function(event, minuteChunksMoved) {
+	    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+	    event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
+	  };
 
-	    vm.eventDragComplete = function(event, minuteChunksMoved) {
-	      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
-	      var newStart = moment(event.startsAt).add(minutesDiff, 'minutes');
-	      var newEnd = moment(event.endsAt).add(minutesDiff, 'minutes');
-	      delete event.tempStartsAt;
+	  vm.eventResizeComplete = function(event, edge, minuteChunksMoved) {
+	    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+	    var start = moment(event.startsAt);
+	    var end = moment(event.endsAt);
+	    if (edge === 'start') {
+	      start.add(minutesDiff, 'minutes');
+	    } else {
+	      end.add(minutesDiff, 'minutes');
+	    }
+	    delete event.tempStartsAt;
 
-	      vm.onEventTimesChanged({
-	        calendarEvent: event,
-	        calendarNewEventStart: newStart.toDate(),
-	        calendarNewEventEnd: event.endsAt ? newEnd.toDate() : null
-	      });
-	    };
+	    vm.onEventTimesChanged({
+	      calendarEvent: event,
+	      calendarNewEventStart: start.toDate(),
+	      calendarNewEventEnd: end.toDate()
+	    });
+	  };
 
-	    vm.eventDragged = function(event, minuteChunksMoved) {
-	      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+	  vm.eventResized = function(event, edge, minuteChunksMoved) {
+	    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+	    if (edge === 'start') {
 	      event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
-	    };
+	    }
+	  };
 
-	    vm.eventResizeComplete = function(event, edge, minuteChunksMoved) {
-	      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
-	      var start = moment(event.startsAt);
-	      var end = moment(event.endsAt);
-	      if (edge === 'start') {
-	        start.add(minutesDiff, 'minutes');
-	      } else {
-	        end.add(minutesDiff, 'minutes');
-	      }
-	      delete event.tempStartsAt;
+	}])
+	.directive('mwlCalendarDay', function() {
 
-	      vm.onEventTimesChanged({
-	        calendarEvent: event,
-	        calendarNewEventStart: start.toDate(),
-	        calendarNewEventEnd: end.toDate()
-	      });
-	    };
+	  return {
+	    template: '<div mwl-dynamic-directive-template name="calendarDayView" overrides="vm.customTemplateUrls"></div>',
+	    restrict: 'E',
+	    require: '^mwlCalendar',
+	    scope: {
+	      events: '=',
+	      columns: '=',
+	      viewDate: '=',
+	      onEventClick: '=',
+	      onEventTimesChanged: '=',
+	      onTimespanClick: '=',
+	      onDateRangeSelect: '=',
+	      dayViewStart: '=',
+	      dayViewEnd: '=',
+	      dayViewSplit: '=',
+	      dayViewEventChunkSize: '=',
+	      dayViewEventWidth: '=',
+	      customTemplateUrls: '=?',
+	      cellModifier: '=',
+	      templateScope: '='
+	    },
+	    controller: 'MwlCalendarDayCtrl as vm',
+	    bindToController: true
+	  };
 
-	    vm.eventResized = function(event, edge, minuteChunksMoved) {
-	      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
-	      if (edge === 'start') {
-	        event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
-	      }
-	    };
-
-	  }])
-	  .directive('mwlCalendarDay', function() {
-
-	    return {
-	      template: '<div mwl-dynamic-directive-template name="calendarDayView" overrides="vm.customTemplateUrls"></div>',
-	      restrict: 'E',
-	      require: '^mwlCalendar',
-	      scope: {
-	        events: '=',
-	        viewDate: '=',
-	        onEventClick: '=',
-	        onEventTimesChanged: '=',
-	        onTimespanClick: '=',
-	        onDateRangeSelect: '=',
-	        dayViewStart: '=',
-	        dayViewEnd: '=',
-	        dayViewSplit: '=',
-	        dayViewEventChunkSize: '=',
-	        dayViewEventWidth: '=',
-	        customTemplateUrls: '=?',
-	        cellModifier: '=',
-	        templateScope: '='
-	      },
-	      controller: 'MwlCalendarDayCtrl as vm',
-	      bindToController: true
-	    };
-
-	  });
+	});
 
 
 /***/ },
@@ -584,6 +592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      template: '<div mwl-dynamic-directive-template name="calendarHourList" overrides="vm.customTemplateUrls"></div>',
 	      controller: 'MwlCalendarHourListCtrl as vm',
 	      scope: {
+	        columns: '=',
 	        viewDate: '=',
 	        dayViewStart: '=',
 	        dayViewEnd: '=',
