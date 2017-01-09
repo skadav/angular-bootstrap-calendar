@@ -4,7 +4,7 @@ var angular = require('angular');
 
 angular
 .module('mwl.calendar')
-.controller('MwlCalendarDayCtrl', function($scope, moment, calendarHelper, calendarEventTitle) {
+.controller('MwlCalendarDayCtrl', function($scope, moment, calendarHelper, calendarEventTitle, $window) {
 
   var vm = this;
 
@@ -77,6 +77,9 @@ angular
     vm.eventDragged = function(event, minuteChunksMoved, columnChunksMoved) {
       var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
       event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
+
+      var document = typeof $window.document === 'undefined' ? '' : $window.document;
+
       document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft + columnChunksMoved / 150;
     };
 
