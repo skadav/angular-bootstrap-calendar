@@ -424,7 +424,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var document = typeof $window.document === 'undefined' ? '' : $window.document;
 
-	      document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft + columnChunksMoved / 150;
+	      document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft + columnChunksMoved / 100;
 	    };
 
 	    vm.eventResizeComplete = function(event, edge, minuteChunksMoved) {
