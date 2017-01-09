@@ -41,81 +41,96 @@ angular
     'vm.dayViewSplit'
   ], refreshView);
 
-  vm.eventDragComplete = function(event, minuteChunksMoved, columChunksMoved) {
+  vm.eventDragComplete = function(event, minuteChunksMoved, columnChunksMoved) {
     var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
     if (typeof vm.columns !== 'undefined') {
       if (typeof event.column === 'undefined') {
         event.column = 0;
       }
-      event.column = event.column + Math.round(columChunksMoved);
-    }
+      var temp = event.column;
+      event.column = event.column + Math.round(columnChunksMoved);
 
-    var newStart = moment(event.startsAt).add(minutesDiff, 'minutes');
-    var newEnd = moment(event.endsAt).add(minutesDiff, 'minutes');
-    delete event.tempStartsAt;
-    vm.onEventTimesChanged({
-      calendarEvent: event,
-      calendarNewEventStart: newStart.toDate(),
-      calendarNewEventEnd: event.endsAt ? newEnd.toDate() : null
-    });
-  };
+      if (event.column < 0) {
+        event.column = 0;
+      }
 
-  vm.eventDragged = function(event, minuteChunksMoved) {
-    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
-    event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
-  };
+      this.nonAllDayEvents.filter(function(ev) {
+        if (ev.event.column === event.column &&
+          ev.event.startsAt.getTime() === event.startsAt.getTime() &&
+          ev.event.calendarEventId !== event.calendarEventId) {
+            ev.event.column = temp;
+            return;
+          }
+        });
+      }
 
-  vm.eventResizeComplete = function(event, edge, minuteChunksMoved) {
-    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
-    var start = moment(event.startsAt);
-    var end = moment(event.endsAt);
-    if (edge === 'start') {
-      start.add(minutesDiff, 'minutes');
-    } else {
-      end.add(minutesDiff, 'minutes');
-    }
-    delete event.tempStartsAt;
+      var newStart = moment(event.startsAt).add(minutesDiff, 'minutes');
+      var newEnd = moment(event.endsAt).add(minutesDiff, 'minutes');
+      delete event.tempStartsAt;
+      vm.onEventTimesChanged({
+        calendarEvent: event,
+        calendarNewEventStart: newStart.toDate(),
+        calendarNewEventEnd: event.endsAt ? newEnd.toDate() : null
+      });
+    };
 
-    vm.onEventTimesChanged({
-      calendarEvent: event,
-      calendarNewEventStart: start.toDate(),
-      calendarNewEventEnd: end.toDate()
-    });
-  };
-
-  vm.eventResized = function(event, edge, minuteChunksMoved) {
-    var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
-    if (edge === 'start') {
+    vm.eventDragged = function(event, minuteChunksMoved, columnChunksMoved) {
+      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
       event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
-    }
-  };
+      document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft + columnChunksMoved / 150;
+    };
 
-})
-.directive('mwlCalendarDay', function() {
+    vm.eventResizeComplete = function(event, edge, minuteChunksMoved) {
+      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+      var start = moment(event.startsAt);
+      var end = moment(event.endsAt);
+      if (edge === 'start') {
+        start.add(minutesDiff, 'minutes');
+      } else {
+        end.add(minutesDiff, 'minutes');
+      }
+      delete event.tempStartsAt;
 
-  return {
-    template: '<div mwl-dynamic-directive-template name="calendarDayView" overrides="vm.customTemplateUrls"></div>',
-    restrict: 'E',
-    require: '^mwlCalendar',
-    scope: {
-      events: '=',
-      columns: '=',
-      viewDate: '=',
-      onEventClick: '=',
-      onEventTimesChanged: '=',
-      onTimespanClick: '=',
-      onDateRangeSelect: '=',
-      dayViewStart: '=',
-      dayViewEnd: '=',
-      dayViewSplit: '=',
-      dayViewEventChunkSize: '=',
-      dayViewEventWidth: '=',
-      customTemplateUrls: '=?',
-      cellModifier: '=',
-      templateScope: '='
-    },
-    controller: 'MwlCalendarDayCtrl as vm',
-    bindToController: true
-  };
+      vm.onEventTimesChanged({
+        calendarEvent: event,
+        calendarNewEventStart: start.toDate(),
+        calendarNewEventEnd: end.toDate()
+      });
+    };
 
-});
+    vm.eventResized = function(event, edge, minuteChunksMoved) {
+      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+      if (edge === 'start') {
+        event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
+      }
+    };
+
+  })
+  .directive('mwlCalendarDay', function() {
+
+    return {
+      template: '<div mwl-dynamic-directive-template name="calendarDayView" overrides="vm.customTemplateUrls"></div>',
+      restrict: 'E',
+      require: '^mwlCalendar',
+      scope: {
+        events: '=',
+        columns: '=',
+        viewDate: '=',
+        onEventClick: '=',
+        onEventTimesChanged: '=',
+        onTimespanClick: '=',
+        onDateRangeSelect: '=',
+        dayViewStart: '=',
+        dayViewEnd: '=',
+        dayViewSplit: '=',
+        dayViewEventChunkSize: '=',
+        dayViewEventWidth: '=',
+        customTemplateUrls: '=?',
+        cellModifier: '=',
+        templateScope: '='
+      },
+      controller: 'MwlCalendarDayCtrl as vm',
+      bindToController: true
+    };
+
+  });
