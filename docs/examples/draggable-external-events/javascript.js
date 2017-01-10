@@ -52,7 +52,7 @@ angular
     vm.cellIsOpen = false;
     vm.columns= [1,2,3,4,5,6,7,8];
 
-    vm.eventDropped = function(event, start, end) {
+    vm.eventDropped = function(event, start, end, column) {
       var externalIndex = vm.externalEvents.indexOf(event);
       if (externalIndex > -1) {
         vm.externalEvents.splice(externalIndex, 1);
@@ -62,6 +62,7 @@ angular
       if (end) {
         event.endsAt = end;
       }
+      event.column = column;
       vm.viewDate = start;
       vm.cellIsOpen = true;
     };
