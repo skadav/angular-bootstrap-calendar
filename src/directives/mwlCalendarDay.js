@@ -52,16 +52,9 @@ angular
 
       if (newColumn < 0) {
         newColumn = 0;
+      } else if (newColumn > vm.columns.length) {
+        newColumn = vm.columns.length - 1;
       }
-
-      // this.nonAllDayEvents.filter(function(ev) {
-      //   if (ev.event.column === event.column &&
-      //     ev.event.startsAt.getTime() === event.startsAt.getTime() &&
-      //     ev.event.calendarEventId !== event.calendarEventId) {
-      //       ev.event.column = temp;
-      //       return;
-      //     }
-      //   });
     }
 
     var newStart = moment(event.startsAt).add(minutesDiff, 'minutes');

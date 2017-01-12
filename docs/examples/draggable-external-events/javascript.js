@@ -50,7 +50,7 @@ angular
     vm.calendarView = 'day';
     vm.viewDate = moment().startOf('month').toDate();
     vm.cellIsOpen = false;
-    vm.columns= [1,2,3,4,5,6,7,8];
+    vm.columns= [1,2,3,4];
 
     vm.eventDropped = function(event, start, end, column) {
       var externalIndex = vm.externalEvents.indexOf(event);
