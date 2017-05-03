@@ -31,7 +31,7 @@ angular
     }
 
     function dayViewTooltip(event) {
-      return event.title;
+      return event.tooltip;
     }
 
     return {

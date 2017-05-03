@@ -3720,7 +3720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    function dayViewTooltip(event) {
-	      return event.title;
+	      return event.tooltip;
 	    }
 
 	    return {
