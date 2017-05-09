@@ -9,23 +9,26 @@ angular
         title: 'Draggable event',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('month').toDate(),
-        draggable: true
+        draggable: true,
+        column: 2
       },
       {
         title: 'Non-draggable event',
         color: calendarConfig.colorTypes.info,
         startsAt: moment().startOf('month').toDate(),
-        draggable: false
+        draggable: true
       }
     ];
 
-    vm.calendarView = 'month';
+    vm.columns = [1,2,3,4,5];
+    vm.calendarView = 'day';
     vm.viewDate = moment().startOf('month').toDate();
     vm.cellIsOpen = true;
 
-    vm.eventTimesChanged = function(event) {
-      vm.viewDate = event.startsAt;
-      alert.show('Dragged and dropped', event);
+    vm.eventTimesChanged = function(vm,column) {
+      console.log(vm);
+      console.log(event);
+      vm.column = column;
     };
 
     vm.timespanClicked = function(date, cell) {
