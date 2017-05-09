@@ -25,10 +25,8 @@ angular
     vm.viewDate = moment().startOf('month').toDate();
     vm.cellIsOpen = true;
 
-    vm.eventTimesChanged = function(vm,column) {
-      console.log(vm);
-      console.log(event);
-      vm.column = column;
+    vm.eventTimesChanged = function(vm,event) {
+      vm.column = event.column;
     };
 
     vm.timespanClicked = function(date, cell) {

@@ -312,7 +312,7 @@ mwl-calendar .cal-day-selected {
 }
 .cal-day-box .day-event {
   position: absolute;
-  width: 300px !important;
+  width: 300px;
   overflow: hidden;
   padding: 2px 3px !important;
 }
