@@ -3613,11 +3613,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  .factory('calendarEventTitle', ["calendarDateFilter", "calendarTruncateEventTitleFilter", function(calendarDateFilter, calendarTruncateEventTitleFilter) {
 
 	    function yearView(event) {
-	      return event.title + ' (' + calendarDateFilter(event.startsAt, 'datetime', true) + ')';
+	      return event.title + ' (' + calendarDateFilter(event.startsAt, 'datetime', true) + ' - ' + calendarDateFilter(event.endsAt, 'datetime', true) + ')';
 	    }
 
 	    function monthView(event) {
-	      return event.title + ' (' + calendarDateFilter(event.startsAt, 'time', true) + ')';
+	      return event.title + ' (' + calendarDateFilter(event.startsAt, 'time', true) + ' - ' + calendarDateFilter(event.endsAt, 'time', true) + ')';
 	    }
 
 	    function monthViewTooltip(event) {
