@@ -6,17 +6,29 @@ angular
 
     vm.events = [
       {
-        title: 'Draggable event',
+        title: 'Draggable evenasdsadadsadsadasdsat',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('month').toDate(),
         draggable: true,
-        column: 2
+        column: 2,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function(args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function(args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
       },
       {
         title: 'Non-draggable event',
         color: calendarConfig.colorTypes.info,
         startsAt: moment().startOf('month').toDate(),
-        draggable: true
+        draggable: true,
+        column: 1
       }
     ];
 
@@ -26,7 +38,7 @@ angular
     vm.cellIsOpen = true;
 
     vm.eventTimesChanged = function(vm,event) {
-      vm.column = event.column;
+      vm.column = event;
     };
 
     vm.timespanClicked = function(date, cell) {

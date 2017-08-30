@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mwl.calendar.docs', ['mwl.calendar', 'ui.bootstrap', 'ngTouch', 'ngAnimate', 'oc.lazyLoad', 'hljs', 'colorpicker.module'])
+  .module('mwl.calendar.docs', ['mwl.calendar', 'ui.bootstrap', 'ngTouch', 'oc.lazyLoad', 'hljs', 'colorpicker.module'])
   .controller('ExamplesCtrl', function($http, $rootScope, $compile, $q, $location, $ocLazyLoad, plunkGenerator, moment) {
 
     var vm = this;
