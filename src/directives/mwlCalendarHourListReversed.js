@@ -11,6 +11,7 @@ angular
     function updateDays() {
 
       vm.dayViewSplit = parseInt(vm.dayViewSplit);
+      vm.columnsCount = 0;
       var dayStart = (vm.dayViewStart || '00:00').split(':');
       var dayEnd = (vm.dayViewEnd || '23:59').split(':');
       vm.hourGrid = calendarUtils.getDayViewHourGrid({
@@ -27,8 +28,8 @@ angular
       });
 
       vm.hourGrid.forEach(function(hour) {
+        vm.columnsCount++;
         hour.segments.forEach(function(segment) {
-
           segment.date = moment(segment.date);
           segment.nextSegmentDate = segment.date.clone().add(vm.dayViewSplit, 'minutes');
 
@@ -118,7 +119,7 @@ angular
 
     return {
       restrict: 'E',
-      template: '<div mwl-dynamic-directive-template name="calendarHourList" overrides="vm.customTemplateUrls"></div>',
+      template: '<div mwl-dynamic-directive-template name="calendarHourListReversed" overrides="vm.customTemplateUrls"></div>',
       controller: 'MwlCalendarHourListReversedCtrl as vm',
       scope: {
         columns: '=',

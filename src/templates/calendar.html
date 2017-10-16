@@ -55,7 +55,8 @@
     ng-switch-when="week">
   </mwl-calendar-week>
 
-  <mwl-calendar-day
+    <mwl-calendar-day
+    ng-if="!vm.reversed"
     events="vm.events"
     columns="vm.columns"
     view-date="vm.viewDate"
@@ -73,4 +74,24 @@
     template-scope="vm.templateScope"
     ng-switch-when="day">
   </mwl-calendar-day>
+
+  <mwl-calendar-day-reversed
+    ng-if="vm.reversed"
+    events="vm.events"
+    columns="vm.columns"
+    view-date="vm.viewDate"
+    on-event-click="vm.onEventClick"
+    on-event-times-changed="vm.onEventTimesChanged"
+    on-timespan-click="vm.onTimespanClick"
+    on-date-range-select="vm.onDateRangeSelect"
+    day-view-start="vm.dayViewStart"
+    day-view-end="vm.dayViewEnd"
+    day-view-split="vm.dayViewSplit"
+    day-view-event-chunk-size="vm.dayViewEventChunkSize"
+    day-view-event-width="vm.dayViewEventWidth"
+    custom-template-urls="vm.customTemplateUrls"
+    cell-modifier="vm.cellModifier"
+    template-scope="vm.templateScope"
+    ng-switch-when="day">
+  </mwl-calendar-day-reversed>
 </div>
