@@ -4,14 +4,14 @@ var angular = require('angular');
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarDayCtrl', function ($scope, moment, calendarHelper, calendarEventTitle, $window) {
+  .controller('MwlCalendarDayCtrl', function($scope, moment, calendarHelper, calendarEventTitle, $window) {
 
     var vm = this;
 
     vm.calendarEventTitle = calendarEventTitle;
-    vm.leftInterval = setInterval(function () { }, 1000);
+    vm.leftInterval = setInterval(function() { }, 1000);
 
-    vm.rightInterval = setInterval(function () { }, 1000);
+    vm.rightInterval = setInterval(function() { }, 1000);
 
     function refreshView() {
       vm.dayViewSplit = vm.dayViewSplit || 30;
@@ -44,7 +44,7 @@ angular
       'vm.dayViewSplit'
     ], refreshView);
 
-    vm.eventDragComplete = function (event, minuteChunksMoved, columnChunksMoved) {
+    vm.eventDragComplete = function(event, minuteChunksMoved, columnChunksMoved) {
       var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
       if (typeof vm.columns !== 'undefined') {
         if (typeof event.column === 'undefined') {
@@ -74,25 +74,24 @@ angular
       clearInterval(vm.rightInterval);
     };
 
-    vm.eventDragged = function (event, minuteChunksMoved, columnChunksMoved) {
+    vm.eventDragged = function(event, minuteChunksMoved) {
       var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
       event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
 
       var document = typeof $window.document === 'undefined' ? '' : $window.document;
 
       var posx = 0;
-      var posy = 0;
-      if (!e) var e = window.event;
+
+      var e = window.event;
+
       if (e.pageX || e.pageY) {
         posx = e.pageX;
-        posy = e.pageY;
+        //posy = e.pageY;
+      } else if (e.clientX || e.clientY) {
+        posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        //posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
       }
-      else if (e.clientX || e.clientY) {
-        posx = e.clientX + document.body.scrollLeft
-          + document.documentElement.scrollLeft;
-        posy = e.clientY + document.body.scrollTop
-          + document.documentElement.scrollTop;
-      }
+
       clearInterval(vm.leftInterval);
       clearInterval(vm.rightInterval);
 
@@ -100,19 +99,18 @@ angular
 
       if (posx >= docWidth) {
         vm.leftInterval = setInterval(
-          function () {
-            document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft + 5;  
+          function() {
+            document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft + 5;
           }, 20);
-      }
-      else if (posx <= 100) {
+      } else if (posx <= 100) {
         vm.rightInterval = setInterval(
-          function () {
+          function() {
             document.getElementById('calendar').scrollLeft = document.getElementById('calendar').scrollLeft - 5;
           }, 20);
       }
-    }
+    };
 
-    vm.eventResizeComplete = function (event, edge, minuteChunksMoved) {
+    vm.eventResizeComplete = function(event, edge, minuteChunksMoved) {
       var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
       var start = moment(event.startsAt);
       var end = moment(event.endsAt);
@@ -130,7 +128,7 @@ angular
       });
     };
 
-    vm.eventResized = function (event, edge, minuteChunksMoved) {
+    vm.eventResized = function(event, edge, minuteChunksMoved) {
       var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
       if (edge === 'start') {
         event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
@@ -138,7 +136,7 @@ angular
     };
 
   })
-  .directive('mwlCalendarDay', function () {
+  .directive('mwlCalendarDay', function() {
 
     return {
       template: '<div mwl-dynamic-directive-template name="calendarDayView" overrides="vm.customTemplateUrls"></div>',
