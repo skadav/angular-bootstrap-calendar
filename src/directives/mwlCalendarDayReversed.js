@@ -47,7 +47,7 @@ angular
     ], refreshView);
 
     vm.eventDragComplete = function(event, columnChunksMoved, minuteChunksMoved) {
-      var minutesDiff = Math.round(minuteChunksMoved / vm.dayViewSplit / 3) * vm.dayViewSplit;
+      var minutesDiff = Math.floor(minuteChunksMoved / vm.dayViewSplit / 3) * vm.dayViewSplit;
       if (typeof vm.columns !== 'undefined') {
         if (typeof event.column === 'undefined') {
           event.column = 0;
@@ -76,7 +76,7 @@ angular
     };
 
     vm.eventDragged = function(event, columnChunksMoved, minuteChunksMoved) {
-      var minutesDiff = Math.round(minuteChunksMoved / vm.dayViewSplit / 3) * vm.dayViewSplit;
+      var minutesDiff = Math.floor(minuteChunksMoved / vm.dayViewSplit / 3) * vm.dayViewSplit;
       event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
       var document = typeof $window.document === 'undefined' ? '' : $window.document;
       var posx = 0;
