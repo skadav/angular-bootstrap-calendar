@@ -4,13 +4,14 @@ angular
 
     var vm = this;
     vm.reversed = true;
-
+    vm.startTime = "07:00";
     //Event Items
     vm.events = [
       {
         title: 'Service 1',
         color: calendarConfig.colorTypes.warning,
-        startsAt: moment(moment().startOf('month').toDate()).add(0, 'hour'),
+        startsAt: moment(moment().startOf('month').toDate()).add(7, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
         draggable: true,
         column: 1,
         actions: [{
@@ -29,8 +30,8 @@ angular
         title: 'Service 2',
         code: 'Service Code',
         color: calendarConfig.colorTypes.info,
-        startsAt: moment(moment().startOf('month').toDate()).add(0, 'hour'),
-        endsAt: moment(moment().startOf('month').toDate()).add(3, 'hour'),
+        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
         draggable: true,
         column: 0,
       }

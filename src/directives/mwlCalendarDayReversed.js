@@ -7,7 +7,6 @@ angular
   .controller('MwlCalendarDayReversedCtrl', function($scope, moment, calendarHelper, calendarEventTitle, $window) {
 
     var vm = this;
-
     vm.calendarEventTitle = calendarEventTitle;
     vm.leftInterval = setInterval(function() { }, 1000);
 
@@ -34,6 +33,9 @@ angular
       vm.nonAllDayEvents = view.events;
       vm.viewWidth = view.width + 62;
 
+      vm.events.forEach(function(event) {
+        event.left = (moment(event.startsAt).hours() * 60 + moment(event.startsAt).minutes()) / 60;
+      });
     }
 
     $scope.$on('calendar.refreshView', refreshView);
