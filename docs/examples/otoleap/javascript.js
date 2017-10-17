@@ -10,7 +10,7 @@ angular
       {
         title: 'Service 1',
         color: calendarConfig.colorTypes.warning,
-        startsAt: moment(moment().startOf('month').toDate()).add(1, 'hour'),
+        startsAt: moment(moment().startOf('month').toDate()).add(0, 'hour'),
         draggable: true,
         column: 1,
         actions: [{
@@ -29,7 +29,7 @@ angular
         title: 'Service 2',
         code: 'Service Code',
         color: calendarConfig.colorTypes.info,
-        startsAt: moment(moment().startOf('month').toDate()).add(1, 'hour'),
+        startsAt: moment(moment().startOf('month').toDate()).add(0, 'hour'),
         endsAt: moment(moment().startOf('month').toDate()).add(3, 'hour'),
         draggable: true,
         column: 0,

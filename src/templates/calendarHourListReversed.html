@@ -3,7 +3,7 @@
     <i class="glyphicon glyphicon-time pull-left" style="margin-left: 20px;margin-top: 5px;"></i>
   </span>
 </div>
-<div class="pull-left day-event day-highlight" style="text-align:center" ng-style="{ top: '-30px', height: '30px', width: '300px', left:($index*300)+60+'px'}"
+<div class="pull-left day-event day-highlight" style="text-align:center" ng-style="{ top: '-30px', height: '30px', width: '180px', left:($index*180)+60+'px'}"
   ng-repeat="hour in vm.hourGrid track by $index">
   <div ng-repeat="segment in hour.segments track by $index">
     <strong ng-bind="segment.date | calendarDate:'hour':true" ng-if="segment.isStart"></strong>

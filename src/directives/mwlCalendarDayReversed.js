@@ -44,15 +44,13 @@ angular
       'vm.dayViewSplit'
     ], refreshView);
 
-    vm.eventDragComplete = function(event, minuteChunksMoved, columnChunksMoved) {
-      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+    vm.eventDragComplete = function(event, columnChunksMoved, minuteChunksMoved) {
+      var minutesDiff = Math.round(minuteChunksMoved / 30 / 3) * vm.dayViewSplit;
       if (typeof vm.columns !== 'undefined') {
         if (typeof event.column === 'undefined') {
           event.column = 0;
         }
-
-        var newColumn = event.column + Math.round(columnChunksMoved);
-
+        var newColumn = event.column + Math.round(columnChunksMoved / 2);
         if (newColumn < 0) {
           newColumn = 0;
         } else if (newColumn > vm.columns.length) {
@@ -72,31 +70,26 @@ angular
 
       clearInterval(vm.leftInterval);
       clearInterval(vm.rightInterval);
+      event.left = (newStart.hours() * 60 + newStart.minutes()) * 3;
     };
 
-    vm.eventDragged = function(event, minuteChunksMoved) {
-      var minutesDiff = minuteChunksMoved * vm.dayViewSplit;
+    vm.eventDragged = function(event, columnChunksMoved, minuteChunksMoved) {
+      var minutesDiff = Math.round(minuteChunksMoved / 30 / 3) * vm.dayViewSplit;
       event.tempStartsAt = moment(event.startsAt).add(minutesDiff, 'minutes').toDate();
-
       var document = typeof $window.document === 'undefined' ? '' : $window.document;
-
       var posx = 0;
-
       var e = window.event;
 
       if (e.pageX || e.pageY) {
         posx = e.pageX;
-        //posy = e.pageY;
       } else if (e.clientX || e.clientY) {
         posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        //posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
       }
 
       clearInterval(vm.leftInterval);
       clearInterval(vm.rightInterval);
 
       var docWidth = parseInt(getComputedStyle(document.getElementById('calendar')).width) - 100;
-
       if (posx >= docWidth) {
         vm.leftInterval = setInterval(
           function() {
@@ -159,7 +152,7 @@ angular
         cellModifier: '=',
         templateScope: '='
       },
-      controller: 'MwlCalendarDayCtrl as vm',
+      controller: 'MwlCalendarDayReversedCtrl as vm',
       bindToController: true
     };
 
