@@ -307,7 +307,6 @@ mwl-calendar .cal-day-selected {
 }
 .cal-day-box .cal-day-panel-hour {
   position: absolute;
-  width: 100%;
   margin-left: -60px;
 }
 .cal-day-box .day-event {

@@ -82,7 +82,7 @@ angular
 
       var posx = 0;
 
-      var e = window.event;
+      var e = $window.event;
 
       if (e.pageX || e.pageY) {
         posx = e.pageX;
@@ -95,7 +95,7 @@ angular
       clearInterval(vm.leftInterval);
       clearInterval(vm.rightInterval);
 
-      var docWidth = parseInt(getComputedStyle(document.getElementById('calendar')).width) - 100;
+      var docWidth = parseInt($window.getComputedStyle(document.getElementById('calendar')).width) - 100;
 
       if (posx >= docWidth) {
         vm.leftInterval = setInterval(
