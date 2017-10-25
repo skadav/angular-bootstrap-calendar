@@ -34,6 +34,7 @@ angular
       vm.viewWidth = view.width + 62;
 
       vm.events.forEach(function(event) {
+        event.actualEnd = '';
         event.left = (moment(event.startsAt).hours() * 60 + moment(event.startsAt).minutes()) / 60;
       });
     }
@@ -59,9 +60,20 @@ angular
           newColumn = vm.columns.length - 1;
         }
       }
-
+      if (event.actualEnd !== '') {
+        event.endsAt = event.actualEnd;
+      }
       var newStart = moment(event.startsAt).add(minutesDiff, 'minutes');
       var newEnd = moment(event.endsAt).add(minutesDiff, 'minutes');
+      var tempNewEnd = moment(event.endsAt).add(minutesDiff, 'minutes');
+      tempNewEnd.set('hour', vm.dayViewEnd.split(':')[0]);
+      tempNewEnd.set('minute', vm.dayViewEnd.split(':')[1]);
+      if (newEnd > tempNewEnd) {
+        event.actualEnd = newEnd.toDate();
+        newEnd = tempNewEnd;
+      } else {
+        event.actualEnd = '';
+      }
       delete event.tempStartsAt;
       vm.onEventTimesChanged({
         calendarEvent: event,

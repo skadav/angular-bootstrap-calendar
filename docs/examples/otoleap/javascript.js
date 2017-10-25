@@ -5,13 +5,14 @@ angular
     var vm = this;
     vm.reversed = true;
     vm.startTime = "07:00";
+    vm.endTime = "09:00";
     //Event Items
     vm.events = [
       {
         title: 'Service 1',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment(moment().startOf('month').toDate()).add(7, 'hour'),
-        endsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(11, 'hour'),
         draggable: true,
         column: 1,
         actions: [{

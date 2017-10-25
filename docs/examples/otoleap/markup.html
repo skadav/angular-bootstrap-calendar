@@ -10,6 +10,7 @@
     cell-auto-open-disabled="true"
     on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
     day-view-start="{{vm.startTime}}"
+    day-view-end="{{vm.endTime}}"
     on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd; vm.eventTimesChanged(calendarEvent,calendarNewColumn)">
   </mwl-calendar>
 </div>
