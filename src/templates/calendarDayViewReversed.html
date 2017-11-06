@@ -50,7 +50,7 @@
               top: (dayEvent.event.column * 60) + 'px',
               left: (dayEvent.event.left - +vm.dayViewStart.substring(0,2)) * 180 + 60 + 'px',
               height: '60px',
-              width: (+vm.dayViewEnd.substring(0,2) - +vm.dayViewStart.substring(0,2) - dayEvent.event.left - ((dayEvent.event.endsAt - dayEvent.event.startsAt) / 3600000) < 0) ? (+vm.dayViewEnd.substring(0,2) - +vm.dayViewStart.substring(0,2) - (dayEvent.event.left - +vm.dayViewStart.substring(0,2))) * 180 + 'px' : (dayEvent.event.endsAt - dayEvent.event.startsAt) / 3600000 * 180 + 'px',
+              width: (+vm.dayViewEnd.substring(0,2) - dayEvent.event.left - ((dayEvent.event.endsAt - dayEvent.event.startsAt) / 3600000) < 0) ? (+vm.dayViewEnd.substring(0,2) - +vm.dayViewStart.substring(0,2) - (dayEvent.event.left - +vm.dayViewStart.substring(0,2))) * 180 + 'px' : (dayEvent.event.endsAt - dayEvent.event.startsAt) / 3600000 * 180 + 'px',
               backgroundColor: dayEvent.event.color.secondary,
               borderColor: dayEvent.event.color.primary
             }"
