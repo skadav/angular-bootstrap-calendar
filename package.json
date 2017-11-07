@@ -88,7 +88,5 @@
       "path": "node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "ngtouch": "^1.0.1"
-  }
+  "dependencies": {}
 }
