@@ -74,12 +74,14 @@
       ng-repeat="action in dayEvent.event.actions track by $index"
       ng-class="action.cssClass"
       ng-bind-html="action.label | calendarTrustAsHtml"
-      ng-click="action.onClick({calendarEvent: dayEvent.event})">
+      ng-click="action.onClick({calendarEvent: dayEvent.event})"
+      ng-tap="action.onClick({calendarEvent: dayEvent.event})">
     </a>
       <a
         href="javascript:;"
         class="event-item"
-        ng-click="vm.onEventClick({calendarEvent: dayEvent.event})">
+        ng-click="vm.onEventClick({calendarEvent: dayEvent.event})"
+        ng-tap="vm.onEventClick({calendarEvent: dayEvent.event})">
         <span ng-bind-html="vm.calendarEventTitle.dayView(dayEvent.event) | calendarTrustAsHtml"></span>
       </a>
     </div>

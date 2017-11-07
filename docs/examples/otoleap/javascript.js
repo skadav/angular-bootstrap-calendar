@@ -3,7 +3,7 @@ angular
   .controller('OtoleapCtrl', function (moment, alert, calendarConfig) {
 
     var vm = this;
-    vm.reversed = true;
+    vm.reversed = false;
     vm.startTime = "07:00";
     vm.endTime = "16:00";
     //Event Items

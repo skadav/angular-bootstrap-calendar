@@ -77,7 +77,7 @@ angular
     return function(ngVersion, bsVersion, uibVersion, momentVersion, helpers, content) {
 
       var scriptContent = function(content) {
-        return "angular.module('mwl.calendar.docs', ['mwl.calendar', 'ngAnimate', 'ui.bootstrap', 'colorpicker.module']);" + "\n" + content;
+        return "angular.module('mwl.calendar.docs', ['mwl.calendar', 'ngAnimate', 'ui.bootstrap', 'colorpicker.module', 'ngTouch']);" + "\n" + content;
       };
 
       $window.createPlunker.Plunker.create()
