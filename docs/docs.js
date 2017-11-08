@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mwl.calendar.docs', ['mwl.calendar', 'ui.bootstrap', 'oc.lazyLoad', 'hljs', 'colorpicker.module'])
+  .module('mwl.calendar.docs', ['mwl.calendar', 'ui.bootstrap', 'oc.lazyLoad', 'hljs', 'colorpicker.module', 'ngTouch', 'ngTap'])
   .controller('ExamplesCtrl', function($http, $rootScope, $compile, $q, $location, $ocLazyLoad, plunkGenerator, moment) {
 
     var vm = this;
@@ -77,7 +77,7 @@ angular
     return function(ngVersion, bsVersion, uibVersion, momentVersion, helpers, content) {
 
       var scriptContent = function(content) {
-        return "angular.module('mwl.calendar.docs', ['mwl.calendar', 'ngAnimate', 'ui.bootstrap', 'colorpicker.module']);" + "\n" + content;
+        return "angular.module('mwl.calendar.docs', ['mwl.calendar', 'ngAnimate', 'ui.bootstrap', 'colorpicker.module', 'ngTouch', 'ngTap']);" + "\n" + content;
       };
 
       $window.createPlunker.Plunker.create()
