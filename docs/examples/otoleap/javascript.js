@@ -35,6 +35,17 @@ angular
         endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
         draggable: true,
         column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
       }
     ];
 
