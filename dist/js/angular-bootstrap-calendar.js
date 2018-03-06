@@ -3892,12 +3892,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          hour: 'ha',
 	          day: 'd MMM',
 	          month: 'MMMM',
-	          weekDay: 'EEEE',
+	          weekDay: 'EEE',
 	          time: 'HH:mm',
 	          datetime: 'MMM d, h:mm a'
 	        },
 	        title: {
-	          day: 'EEEE d MMMM, yyyy',
+	          day: 'EEE d MMMM, yyyy',
 	          week: 'Week {week} of {year}',
 	          month: 'MMMM yyyy',
 	          year: 'yyyy'
