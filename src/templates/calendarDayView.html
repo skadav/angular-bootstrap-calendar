@@ -48,9 +48,9 @@
       ng-class="dayEvent.event.cssClass"
       ng-style="{
         top: dayEvent.top - 1 + 'px',
-        left: (dayEvent.event.column * 300) + 60 + 'px',
+        left: (dayEvent.event.column * 300) + dayEvent.left + 'px',
         height: dayEvent.height + 'px',
-        width: '300px',
+        width: dayEvent.event.width + 'px',
         backgroundColor: dayEvent.event.color.secondary,
         borderColor: dayEvent.event.color.primary
       }"
