@@ -9,6 +9,25 @@ angular
     //Event Items
     vm.events = [
       {
+        title: 'JUMAIL',
+        color: calendarConfig.colorTypes.warning,
+        startsAt: moment(moment().startOf('month').toDate()).add(12, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(14, 'hour'),
+        draggable: true,
+        column: 1,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
         title: 'Service 1',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment(moment().startOf('month').toDate()).add(15, 'hour'),
@@ -29,7 +48,164 @@ angular
       },
       {
         title: 'Service 2',
+        color: calendarConfig.colorTypes.warning,
+        startsAt: moment(moment().startOf('month').toDate()).add(15, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(17, 'hour'),
+        draggable: true,
+        column: 1,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'Service 3',
+        color: calendarConfig.colorTypes.warning,
+        startsAt: moment(moment().startOf('month').toDate()).add(15, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(17, 'hour'),
+        draggable: true,
+        column: 1,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'double 1',
         code: 'Service Code',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(9, 'hour'),
+        draggable: true,
+        column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'double 2',
+        code: 'Service Code  swsw',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
+        draggable: true,
+        column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'double 3',
+        code: 'Service Code  swsw',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
+        draggable: true,
+        column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'double 4',
+        code: 'Service Code  swsw',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(9, 'hour'),
+        draggable: true,
+        column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'double 5',
+        code: 'Service Code  swsw',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment(moment().startOf('month').toDate()).add(7.5, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
+        draggable: true,
+        column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      },
+      {
+        title: 'double 6',
+        code: 'Service Code  swsw',
+        color: calendarConfig.colorTypes.info,
+        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
+        draggable: true,
+        column: 0,
+        actions: [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function (args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function (args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }]
+      }, {
+        title: 'double 7',
+        code: 'Service Code  swsw',
         color: calendarConfig.colorTypes.info,
         startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
         endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
@@ -48,6 +224,7 @@ angular
         }]
       }
     ];
+
 
     vm.columns = [1, 2, 3, 4, 5];
     vm.calendarView = 'day';
