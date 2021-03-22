@@ -4371,7 +4371,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var dayStart = (dayViewStart || '00:00').split(':');
 	      var dayEnd = (dayViewEnd || '23:59').split(':');
-	      var view = calendarUtil.getDayView({
+	      var view = calendarUtil.getDayViewFork({
 	        events: events.map(function(event) { // hack required to work with event API
 	          var eventPeriod = getRecurringEventPeriod({
 	            start: moment(event.startsAt),
@@ -4564,7 +4564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 	            });
 	        }
-	        function getDayView(_a) {
+	        function getDayViewFork(_a) {
 	            var b = _a.events, events = b === void 0 ? []
 	            : b, viewDate = _a.viewDate,
 	            hourSegments = _a.hourSegments,
@@ -4659,7 +4659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        return {
-	            getDayView: getDayView
+	            getDayViewFork: getDayViewFork
 	        };
 
 	    });
