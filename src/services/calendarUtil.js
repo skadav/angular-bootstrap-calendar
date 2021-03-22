@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint loopfunc: true */
 var differenceInMinutes = require('date-fns/difference_in_minutes');
 var setMinutes = require('date-fns/set_minutes');
 var startOfMinute = require('date-fns/start_of_minute');
@@ -11,9 +11,9 @@ var angular = require('angular');
 var MINUTES_IN_HOUR = 60;
 angular
     .module('mwl.calendar')
-    .factory('calendarUtil', function () {
+    .factory('calendarUtil', function() {
 
-        function isEventIsPeriod (_a) {
+        function isEventIsPeriod(_a) {
             var event = _a.event, periodStart = _a.periodStart, periodEnd = _a.periodEnd;
             var eventStart = event.start;
             var eventEnd = event.end || event.start;
@@ -34,26 +34,34 @@ angular
             }
             return false;
         }
-        function getEventsInPeriod (_a) {
+        function getEventsInPeriod(_a) {
             var events = _a.events, periodStart = _a.periodStart, periodEnd = _a.periodEnd;
-            return events.filter(function (event) {
+            return events.filter(function(event) {
                 return isEventIsPeriod({
                     event: event, periodStart: periodStart, periodEnd: periodEnd
                 });
             });
         }
-        function getDayView (_a) {
-            var _b = _a.events, events = _b === void 0 ? [] : _b, viewDate = _a.viewDate, hourSegments = _a.hourSegments, dayStart = _a.dayStart, dayEnd = _a.dayEnd, eventWidth = _a.eventWidth, segmentHeight = _a.segmentHeight;
+        function getDayView(_a) {
+            var b = _a.events, events = b === void 0 ? []
+            : b, viewDate = _a.viewDate,
+            hourSegments = _a.hourSegments,
+            dayStart = _a.dayStart,
+            dayEnd = _a.dayEnd,
+            segmentHeight = _a.segmentHeight;
+            var left = 60;
             var startOfView = setMinutes(setHours(startOfDay(viewDate), dayStart.hour), dayStart.minute);
             var endOfView = setMinutes(setHours(startOfMinute(endOfDay(viewDate)), dayEnd.hour), dayEnd.minute);
             var previousDayEvents = [];
             var dayViewEvents = getEventsInPeriod({
-                events: events.filter(function (event) { return !event.allDay; }),
+                events: events.filter(function(event) {
+                    return !event.allDay;
+                }),
                 periodStart: startOfView,
                 periodEnd: endOfView
-            }).sort(function (eventA, eventB) {
+            }).sort(function(eventA, eventB) {
                 return eventA.start.valueOf() - eventB.start.valueOf();
-            }).map(function (event) {
+            }).map(function(event) {
                 var eventStart = event.start;
                 var eventEnd = event.end || eventStart;
                 var startsBeforeDay = eventStart < startOfView;
@@ -69,26 +77,32 @@ angular
                 var height = differenceInMinutes(endDate, startDate);
                 if (!event.end) {
                     height = segmentHeight;
-                }
-                else {
+                } else {
                     height *= hourHeightModifier;
                 }
-                var bottom = top + height;
-                var overlappingPreviousEvents = previousDayEvents.filter(function (previousEvent) {
+                 var bottom = top + height;
+                var overlappingPreviousEvents = previousDayEvents.filter(function(previousEvent) {
                     var previousEventTop = previousEvent.top;
                     var previousEventBottom = previousEvent.top + previousEvent.height;
                     if (top < previousEventBottom && previousEventBottom < bottom) {
                         return true;
-                    }
-                    else if (previousEventTop <= top && bottom <= previousEventBottom) {
+                    } else if (previousEventTop <= top && bottom <= previousEventBottom) {
+                        return true;
+                    } else if (top === previousEventTop && bottom === previousEventBottom) {
                         return true;
                     }
                     return false;
                 });
-                var left = 60;
-                while (overlappingPreviousEvents.some(function (previousEvent) { return previousEvent.left === left; })) {
-                    left += event.width;
+
+                var value = overlappingPreviousEvents.some(function(x) {
+                    return x.left === left;
+                });
+                if (value === true) {
+                    left = left + event.width;
+                } else {
+                    left = 60;
                 }
+
                 var dayEvent = {
                     event: event,
                     height: height,
@@ -102,10 +116,16 @@ angular
                     previousDayEvents.push(dayEvent);
                 }
                 return dayEvent;
-            }).filter(function (dayEvent) { return dayEvent.height > 0; });
-            var width = Math.max.apply(Math, dayViewEvents.map(function (event) { return event.left + event.width; }));
+            }).filter(function(dayEvent) {
+                return dayEvent.height > 0;
+            });
+            var width = Math.max.apply(Math, dayViewEvents.map(function(event) {
+                return event.left + event.width;
+            }));
             var allDayEvents = getEventsInPeriod({
-                events: events.filter(function (event) { return event.allDay; }),
+                events: events.filter(function(event) {
+                    return event.allDay;
+                }),
                 periodStart: startOfDay(startOfView),
                 periodEnd: endOfDay(endOfView)
             });
