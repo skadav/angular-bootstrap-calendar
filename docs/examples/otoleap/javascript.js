@@ -5,7 +5,7 @@ angular
     var vm = this;
     vm.reversed = false;
     vm.startTime = "07:00";
-    vm.endTime = "16:00";
+    vm.endTime = "18:00";
     //Event Items
     vm.events = [
       {
@@ -50,7 +50,7 @@ angular
         title: 'Service 2',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment(moment().startOf('month').toDate()).add(15, 'hour'),
-        endsAt: moment(moment().startOf('month').toDate()).add(17, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(16, 'hour'),
         draggable: true,
         column: 1,
         actions: [{
@@ -68,8 +68,8 @@ angular
       {
         title: 'Service 3',
         color: calendarConfig.colorTypes.warning,
-        startsAt: moment(moment().startOf('month').toDate()).add(15, 'hour'),
-        endsAt: moment(moment().startOf('month').toDate()).add(17, 'hour'),
+        startsAt: moment(moment().startOf('month').toDate()).add(14, 'hour'),
+        endsAt: moment(moment().startOf('month').toDate()).add(16, 'hour'),
         draggable: true,
         column: 1,
         actions: [{
@@ -108,7 +108,7 @@ angular
         title: 'double 2',
         code: 'Service Code  swsw',
         color: calendarConfig.colorTypes.info,
-        startsAt: moment(moment().startOf('month').toDate()).add(8, 'hour'),
+        startsAt: moment(moment().startOf('month').toDate()).add(8.5, 'hour'),
         endsAt: moment(moment().startOf('month').toDate()).add(10, 'hour'),
         draggable: true,
         column: 0,
