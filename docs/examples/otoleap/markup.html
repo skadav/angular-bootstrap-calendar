@@ -1,5 +1,5 @@
 <div ng-controller="OtoleapCtrl as vm">
-  <!-- <ng-include src="'calendarControls.html'"></ng-include> -->
+  <ng-include src="'calendarControls.html'"></ng-include>
   <mwl-calendar
     columns="vm.columns"
     reversed="vm.reversed"
@@ -11,7 +11,7 @@
     on-timespan-click="vm.timespanClicked(calendarDate, calendarCell)"
     day-view-start="{{vm.startTime}}"
     day-view-end="{{vm.endTime}}"
-    day-view-split="20"
+    day-view-split="30"
     day-view-event-width="{{vm.wd}}"
     on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd; vm.eventTimesChanged(calendarEvent,calendarNewColumn)">
   </mwl-calendar>
