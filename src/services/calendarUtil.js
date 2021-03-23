@@ -42,7 +42,7 @@ angular
                 });
             });
         }
-        function getDayView(_a) {
+        function getDayViewFork(_a) {
             var b = _a.events, events = b === void 0 ? []
             : b, viewDate = _a.viewDate,
             hourSegments = _a.hourSegments,
@@ -68,6 +68,7 @@ angular
                 var endsAfterDay = eventEnd > endOfView;
                 var hourHeightModifier = (hourSegments * segmentHeight) / MINUTES_IN_HOUR;
                 var top = 0;
+                var column = event.column;
                 if (eventStart > startOfView) {
                     top += differenceInMinutes(eventStart, startOfView);
                 }
@@ -83,17 +84,17 @@ angular
                  var bottom = top + height;
                 var overlappingPreviousEvents = previousDayEvents.filter(function(previousEvent) {
                     var previousEventTop = previousEvent.top;
+                    var previousColumn = previousEvent.event.column;
                     var previousEventBottom = previousEvent.top + previousEvent.height;
-                    if (top < previousEventBottom && previousEventBottom < bottom) {
+                    if (top < previousEventBottom && previousEventBottom < bottom && column === previousColumn) {
                         return true;
-                    } else if (previousEventTop <= top && bottom <= previousEventBottom) {
+                    } else if (previousEventTop <= top && bottom <= previousEventBottom && column === previousColumn) {
                         return true;
-                    } else if (top === previousEventTop && bottom === previousEventBottom) {
+                    } else if (top === previousEventTop && bottom === previousEventBottom && column === previousColumn) {
                         return true;
                     }
                     return false;
                 });
-
                 var value = overlappingPreviousEvents.some(function(x) {
                     return x.left === left;
                 });
@@ -102,7 +103,6 @@ angular
                 } else {
                     left = 60;
                 }
-
                 var dayEvent = {
                     event: event,
                     height: height,
@@ -137,7 +137,7 @@ angular
         }
 
         return {
-            getDayView: getDayView
+            getDayViewFork: getDayViewFork
         };
 
     });

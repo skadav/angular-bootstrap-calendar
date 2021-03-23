@@ -227,32 +227,13 @@ angular
       });
 
       return { days: days, eventRows: eventRows };
-
     }
 
     function getDayView(events, viewDate, dayViewStart, dayViewEnd, dayViewSplit, dayViewEventWidth) {
-      // var index = 0;
-      // var value = [];
-      // for (index = 0; index < events.length; index++) {
-      //    value = events.filter(function(x) {
-      //     return x.column === events[index].column &&
-      //     ((x.startsAt.isBefore(events[index].startsAt) && x.endsAt.isAfter(events[index].startsAt)) ||
-      //       (x.startsAt.isAfter(events[index].startsAt) && x.endsAt.isBefore(events[index].endsAt)) ||
-      //       (x.startsAt.isBefore(events[index].endsAt) && x.endsAt.isAfter(events[index].endsAt)) ||
-      //       (x.startsAt.isSame(events[index].startsAt) && x.endsAt.isSame(events[index].endsAt)) ||
-      //       (x.startsAt.isSame(events[index].startsAt) && (x.endsAt.isBefore(events[index].endsAt) || x.endsAt.isAfter(events[index].endsAt))) ||
-      //       (x.endsAt.isSame(events[index].endsAt) && (x.startsAt.isBefore(events[index].startsAt) || x.startsAt.isAfter(events[index].startsAt))));
-      //   });
-      //   if (value.length > 1) {
-      //     events[index].width = 300 / value.length;
-      //   } else {
-      //     events[index].width = 300;
-      //   }
-      // }
 
       var dayStart = (dayViewStart || '00:00').split(':');
       var dayEnd = (dayViewEnd || '23:59').split(':');
-      var view = calendarUtil.getDayView({
+      var view = calendarUtil.getDayViewFork({
         events: events.map(function(event) { // hack required to work with event API
           var eventPeriod = getRecurringEventPeriod({
             start: moment(event.startsAt),
