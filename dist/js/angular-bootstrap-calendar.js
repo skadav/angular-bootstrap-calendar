@@ -4249,28 +4249,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 
 	      return { days: days, eventRows: eventRows };
-
 	    }
 
 	    function getDayView(events, viewDate, dayViewStart, dayViewEnd, dayViewSplit, dayViewEventWidth) {
-	      // var index = 0;
-	      // var value = [];
-	      // for (index = 0; index < events.length; index++) {
-	      //    value = events.filter(function(x) {
-	      //     return x.column === events[index].column &&
-	      //     ((x.startsAt.isBefore(events[index].startsAt) && x.endsAt.isAfter(events[index].startsAt)) ||
-	      //       (x.startsAt.isAfter(events[index].startsAt) && x.endsAt.isBefore(events[index].endsAt)) ||
-	      //       (x.startsAt.isBefore(events[index].endsAt) && x.endsAt.isAfter(events[index].endsAt)) ||
-	      //       (x.startsAt.isSame(events[index].startsAt) && x.endsAt.isSame(events[index].endsAt)) ||
-	      //       (x.startsAt.isSame(events[index].startsAt) && (x.endsAt.isBefore(events[index].endsAt) || x.endsAt.isAfter(events[index].endsAt))) ||
-	      //       (x.endsAt.isSame(events[index].endsAt) && (x.startsAt.isBefore(events[index].startsAt) || x.startsAt.isAfter(events[index].startsAt))));
-	      //   });
-	      //   if (value.length > 1) {
-	      //     events[index].width = 300 / value.length;
-	      //   } else {
-	      //     events[index].width = 300;
-	      //   }
-	      // }
 
 	      var dayStart = (dayViewStart || '00:00').split(':');
 	      var dayEnd = (dayViewEnd || '23:59').split(':');
@@ -4493,6 +4474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var endsAfterDay = eventEnd > endOfView;
 	                var hourHeightModifier = (hourSegments * segmentHeight) / MINUTES_IN_HOUR;
 	                var top = 0;
+	                var column = event.column;
 	                if (eventStart > startOfView) {
 	                    top += differenceInMinutes(eventStart, startOfView);
 	                }
@@ -4508,17 +4490,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                 var bottom = top + height;
 	                var overlappingPreviousEvents = previousDayEvents.filter(function(previousEvent) {
 	                    var previousEventTop = previousEvent.top;
+	                    var previousColumn = previousEvent.event.column;
 	                    var previousEventBottom = previousEvent.top + previousEvent.height;
-	                    if (top < previousEventBottom && previousEventBottom < bottom) {
+	                    if (top < previousEventBottom && previousEventBottom < bottom && column === previousColumn) {
 	                        return true;
-	                    } else if (previousEventTop <= top && bottom <= previousEventBottom) {
+	                    } else if (previousEventTop <= top && bottom <= previousEventBottom && column === previousColumn) {
 	                        return true;
-	                    } else if (top === previousEventTop && bottom === previousEventBottom) {
+	                    } else if (top === previousEventTop && bottom === previousEventBottom && column === previousColumn) {
 	                        return true;
 	                    }
 	                    return false;
 	                });
-
 	                var value = overlappingPreviousEvents.some(function(x) {
 	                    return x.left === left;
 	                });
@@ -4527,7 +4509,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } else {
 	                    left = 60;
 	                }
-	                console.log('KOJIRO', left);
 	                var dayEvent = {
 	                    event: event,
 	                    height: height,
