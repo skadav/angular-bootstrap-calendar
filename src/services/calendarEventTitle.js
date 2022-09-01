@@ -7,7 +7,7 @@ angular
   .factory('calendarEventTitle', function(calendarDateFilter, calendarTruncateEventTitleFilter) {
 
     function yearView(event) {
-      if (event.showTime !== undefined && !event.showTime) {
+      if (typeof event.showTime !== 'undefined' && !event.showTime) {
         return event.title + ' (' + calendarDateFilter(event.startsAt, 'date', true) + ' - ' + calendarDateFilter(event.endsAt, 'date', true) + ')';
       } else {
         return event.title + ' (' + calendarDateFilter(event.startsAt, 'datetime', true) + ' - ' + calendarDateFilter(event.endsAt, 'datetime', true) + ')';
@@ -15,7 +15,7 @@ angular
     }
 
     function monthView(event) {
-      if (event.showTime !== undefined && !event.showTime) {
+      if (typeof event.showTime !== 'undefined' && !event.showTime) {
         return event.title;
       } else {
         return event.title + ' (' + calendarDateFilter(event.startsAt, 'time', true) + ' - ' + calendarDateFilter(event.endsAt, 'time', true) + ')';
