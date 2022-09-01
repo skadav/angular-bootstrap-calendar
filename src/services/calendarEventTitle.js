@@ -7,11 +7,19 @@ angular
   .factory('calendarEventTitle', function(calendarDateFilter, calendarTruncateEventTitleFilter) {
 
     function yearView(event) {
-      return event.title + ' (' + calendarDateFilter(event.startsAt, 'datetime', true) + ' - ' + calendarDateFilter(event.endsAt, 'datetime', true) + ')';
+      if (event.showTime !== undefined && !event.showTime) {
+        return event.title + ' (' + calendarDateFilter(event.startsAt, 'date', true) + ' - ' + calendarDateFilter(event.endsAt, 'date', true) + ')';
+      } else {
+        return event.title + ' (' + calendarDateFilter(event.startsAt, 'datetime', true) + ' - ' + calendarDateFilter(event.endsAt, 'datetime', true) + ')';
+      }
     }
 
     function monthView(event) {
-      return event.title + ' (' + calendarDateFilter(event.startsAt, 'time', true) + ' - ' + calendarDateFilter(event.endsAt, 'time', true) + ')';
+      if (event.showTime !== undefined && !event.showTime) {
+        return event.title;
+      } else {
+        return event.title + ' (' + calendarDateFilter(event.startsAt, 'time', true) + ' - ' + calendarDateFilter(event.endsAt, 'time', true) + ')';
+      }
     }
 
     function monthViewTooltip(event) {
