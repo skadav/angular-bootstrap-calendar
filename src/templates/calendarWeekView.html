@@ -49,6 +49,7 @@
         <div class="cal-row-fluid">
           <div
             ng-repeat="eventRow in row.row track by eventRow.event.calendarEventId"
+            ng-show="!eventRow.event.isBreakTime"
             ng-class="'cal-cell' + (vm.showTimes ? 1 : eventRow.span) + (vm.showTimes ? '' : ' cal-offset' + eventRow.offset)"
             ng-style="{
               top: vm.showTimes ? ((eventRow.top) + 'px') : 'auto',
