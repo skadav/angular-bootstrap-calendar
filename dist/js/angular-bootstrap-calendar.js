@@ -4512,7 +4512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var value = overlappingPreviousEvents.some(function(x) {
 	                    return x.left === left;
 	                });
-	                if (value === true) {
+	                if (value === true && (angular.isUndefined(event.isBreakTime) || event.isBreakTime === false)) {
 	                    left = left + event.width;
 	                } else {
 	                    left = 60;
